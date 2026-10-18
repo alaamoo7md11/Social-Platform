@@ -48,12 +48,13 @@ const bootstrap = async (app, express) => {
     }),
   );
   app.use(express.json());
+  
   app.use("/auth", authRouter);
   app.use("/user", userRouter);
   app.use("/post", postRouter);
   app.use("/comment", commentRouter);
   app.use("/admin", adminRouter);
-
+app.get("/", (req, res) => res.json({ success: true, message: "Social Platform API is running" }));
   app.use(errorHandler);
 };
 export default bootstrap;
