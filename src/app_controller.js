@@ -6,6 +6,8 @@ import postRouter from "./modules/post/post.controller.js";
 import commentRouter from "./modules/comment/comment.controller.js";
 import adminRouter from "./modules/admin/admin.controller.js";
 import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
 import morgan from "morgan";
 import chalk from "chalk";
 const bootstrap = async (app, express) => {
@@ -49,6 +51,19 @@ const bootstrap = async (app, express) => {
   );
   app.use(express.json());
   
+
+  const CDN = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14";
+  app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+      customCssUrl: `${CDN}/swagger-ui.css`,
+      customJs: [
+        `${CDN}/swagger-ui-bundle.js`,
+        `${CDN}/swagger-ui-standalone-preset.js`,
+      ],
+    }),
+  );
   app.use("/auth", authRouter);
   app.use("/user", userRouter);
   app.use("/post", postRouter);
