@@ -7,7 +7,7 @@ import Randomstring from "randomstring";
 import OTP from "../../DB/models/otp.model.js";
 import { subjects } from "../../Utils/emails/send_Emails.js";
 import { OAuth2Client } from "google-auth-library";
-import { activateTemplate } from "../../Utils/emails/templateHTML.js";
+import { activateTemplate, forgotPasswordOtpTemplate } from "../../Utils/emails/templateHTML.js";
 export const register = async (req, res, next) => {
   // data
   const { email, userName, password, phone, otp } = req.body;
