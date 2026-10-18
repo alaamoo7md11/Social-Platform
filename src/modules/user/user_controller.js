@@ -6,7 +6,6 @@ import { endpoints } from "./user_endpoints.js";
 import validate from "../../middelware/validate_middelware.js";
 import * as validateUser from "./user_validation.js";
 import { asyncHandler } from "../../Utils/async_handler/asyncHandker.js";
-import { fileValidation, upload } from "../../Utils/fileUpload/files.js";
 import { uploadCloud } from "../../Utils/config/multer.cloudinary.js";
 const router = Router({ caseSensitive: false, strict: false });
 router.get(
@@ -58,7 +57,7 @@ router.post(
 router.post(
   "/cover-picture",
   auth,
-  upload(fileValidation.images, "uploads/user/cover-picture").array("images"), //array>>>req.files
+  uploadCloud().array("images"), //array>>>req.files
   asyncHandler(user.coverPicture),
 );
 

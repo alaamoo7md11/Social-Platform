@@ -128,7 +128,14 @@ export const profilePicture = async (req, res, next) => {
 };
 export const coverPicture = async (req, res, next) => {
   const user = await User.findById(req.user._id);
-  user.coverPicture = req.files.map((file) => file.path);
+  const uploads = await Promise.all(
+    req.files.map((file) =>
+      cloudinary.uploader.upload(file.path, {
+        folder: `users/${user._id}/coverPicture`,
+      }),
+    ),
+  );
+  user.coverPicture = uploads.map((file) => file.secure_url);
   await user.save();
   return res.status(200).json({ success: true, result: user });
 };
