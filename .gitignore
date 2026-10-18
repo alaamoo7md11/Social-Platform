@@ -1,0 +1,4 @@
+node_modules
+.env
+# Google OAuth credentials
+client_secret_*.json
